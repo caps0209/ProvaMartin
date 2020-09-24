@@ -26,7 +26,6 @@ public class PessoaDAO extends ConnHSQLDB {
 		int quantidade = 0;
 
 		// inserir dados
-
 		try (Connection connection = this.conectar();
 				PreparedStatement pst = connection.prepareStatement(SQL_INSERT_PESSOA);) {
 			pst.setString(1, pessoa.getNome());

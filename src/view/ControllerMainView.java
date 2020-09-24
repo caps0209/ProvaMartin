@@ -3,11 +3,8 @@ package view;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
 import java.util.List;
-
 import com.entidades.Pessoa;
-
 import dao.PessoaDAO;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -61,15 +58,23 @@ public class ControllerMainView extends Application {
 		textFieldNome.requestFocus();
 	}
 
-	private Pessoa pegaDados() throws ParseException {
-		int id = Integer.parseInt(textFieldId.getText());
+	private Pessoa pegaDados(boolean comId) throws ParseException {
 		String nome = textFieldNome.getText();
 		java.util.Date dataNasc = new SimpleDateFormat("yyyy-MM-dd").parse(textFieldDataNasc.getText());
 		java.sql.Date dataSql = new java.sql.Date(dataNasc.getTime());
 
 		float peso = Float.parseFloat(textFieldPeso.getText());
 
-		return new Pessoa(id, nome, dataSql, peso);
+		if (comId) {
+			int id = Integer.parseInt(textFieldId.getText());
+			return new Pessoa(id, nome, dataSql, peso);
+		}
+
+		return new Pessoa(nome, dataSql, peso);
+	}
+
+	private Pessoa pegaDados() throws ParseException {
+		return pegaDados(false);
 	}
 
 	private void configBtns(boolean containsId) {
@@ -86,7 +91,7 @@ public class ControllerMainView extends Application {
 
 	@FXML
 	void onActionAlterar(ActionEvent event) throws ParseException {
-		Pessoa pessoa = pegaDados();
+		Pessoa pessoa = pegaDados(true);
 		limpaCampos();
 
 		if (new PessoaDAO().alterar(pessoa)) {
@@ -101,7 +106,7 @@ public class ControllerMainView extends Application {
 
 	@FXML
 	void onActionExcluir(ActionEvent event) throws ParseException {
-		Pessoa pessoa = pegaDados();
+		Pessoa pessoa = pegaDados(true);
 		limpaCampos();
 
 		if (new PessoaDAO().excluir(pessoa)) {
