@@ -73,10 +73,6 @@ public class ControllerMainView extends Application {
 		return new Pessoa(nome, dataSql, peso);
 	}
 
-	private Pessoa pegaDados() throws ParseException {
-		return pegaDados(false);
-	}
-
 	private void configBtns(boolean containsId) {
 		if (containsId) {
 			btnAlterar.setDisable(true);
@@ -145,7 +141,7 @@ public class ControllerMainView extends Application {
 
 	@FXML
 	void onActionIncluir(ActionEvent event) throws ParseException {
-		Pessoa pessoa = pegaDados();
+		Pessoa pessoa = pegaDados(false);
 		limpaCampos();
 
 		int quantidade = new PessoaDAO().inserir(pessoa);
