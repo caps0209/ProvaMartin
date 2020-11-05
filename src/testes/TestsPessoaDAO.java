@@ -13,22 +13,11 @@ import dao.PessoaDAO;
 public class TestsPessoaDAO {
 
 	PessoaDAO p;
-	Pessoa a;
 	Connection connection;
 
 	@Before
 	public void setUp() throws Exception {
 		p = new PessoaDAO();
-	}
-
-	@Test
-	public void testAlterar() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testExcluir() {
-		fail("Not yet implemented");
 	}
 
 	@Test
@@ -47,31 +36,31 @@ public class TestsPessoaDAO {
 		assertEquals(2, listaPessoa.size());
 		assertEquals("pedro", listaPessoa.get(0).getNome());
 		assertEquals("joao", listaPessoa.get(1).getNome());
-		// assertEquals("jose", listaPessoa.get(2).getNome());
+		//assertEquals("jose", listaPessoa.get(2).getNome());
 	}
 
 	@Test
 	public void testFindByID() {
 		Pessoa pessoa = this.p.findByID(13);
-		assertEquals(13, pessoa.getId());
 		System.out.println(pessoa.getNome());
+		assertEquals(13, pessoa.getId());
+		System.out.println();
 	}
-
 	
 	@Test
 	public void testInserir() {
 		Pessoa pessoa = new Pessoa();
-		pessoa.setId(14);
-		pessoa.setNome("Igor");
+		pessoa.setId(90);
+		pessoa.setNome("alexandre");
 		pessoa.setDataNasc(null);
-		pessoa.setPeso(45);
-
+		pessoa.setPeso(48);
+		
 		System.out.println(pessoa.getId());
 		System.out.println(pessoa.getNome());
 		System.out.println(pessoa.getDataNasc());
 		System.out.println(pessoa.getPeso());
-
-		assertEquals("Sucesso ao add na tabela do banco", 1, p.inserir(pessoa));
+		
+		assertEquals(1, p.inserir(pessoa));
 
 	}
 	 
